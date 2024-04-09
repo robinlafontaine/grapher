@@ -6,12 +6,26 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
-public class GreetingController {
+public class MVController {
 
     @GetMapping("/greeting")
     public String greeting(@RequestParam(name="name", required=false, defaultValue="World") String name, Model model) {
         model.addAttribute("name", name);
         return "greeting";
+    }
+
+    @GetMapping("/graph")
+    public String graph(Model model) {
+        //model.getAttribute(un_graph);
+        Graph graph = new Graph();
+        graph.addNode(1);
+        graph.addNode(2);
+        graph.addNode(3);
+        graph.addEdge(1, 2, 1.1);
+        graph.addEdge(2, 3, 2.2);
+        graph.addEdge(3, 1, 3.3);
+        model.addAttribute("graph", graph.toString());
+        return "graph";
     }
 
 }
