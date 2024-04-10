@@ -42,6 +42,11 @@ var cy = cytoscape({
 
 });
 
+cy.add([
+    {data: { id: 'c'}},
+    {data: { id: 'ac', source: 'a', target: 'c', weight: 6.1}}
+])
+
 cy.autoungrabify(true);
 cy.zoom(0.8);
 cy.center();
