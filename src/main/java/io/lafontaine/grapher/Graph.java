@@ -1,6 +1,9 @@
 package io.lafontaine.grapher;
 
 import java.util.*;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+
 
 public final class Graph {
 
@@ -41,15 +44,9 @@ public final class Graph {
         return sb.toString();
     }
 
-    public static void main(String... args) {
-        Graph graph = new Graph();
-        graph.addNode(1);
-        graph.addNode(2);
-        graph.addNode(3);
-        graph.addEdge(1, 2, 1.1);
-        graph.addEdge(2, 3, 2.2);
-        graph.addEdge(3, 1, 3.3);
-        System.out.println(graph);
+    public static String Graph2Json(Graph graph) {
+        Gson gson = new Gson();
+        return gson.toJson(graph);
     }
 
 }

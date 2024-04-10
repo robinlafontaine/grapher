@@ -4,6 +4,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import static io.lafontaine.grapher.Graph.Graph2Json;
 
 @Controller
 public class MVController {
@@ -16,7 +17,13 @@ public class MVController {
 
     @GetMapping("/graph")
     public String graph(Model model) {
-        //model.getAttribute(un_graph);
+        //model.getAttribute(un_graph);è
+
+        return "graph";
+    }
+
+    @GetMapping("/json")
+    public String json(Model model) {
         Graph graph = new Graph();
         graph.addNode(1);
         graph.addNode(2);
@@ -24,8 +31,9 @@ public class MVController {
         graph.addEdge(1, 2, 1.1);
         graph.addEdge(2, 3, 2.2);
         graph.addEdge(3, 1, 3.3);
-        model.addAttribute("graph", graph.toString());
-        return "graph";
+        String json = Graph2Json(graph);
+        model.addAttribute("json", json);
+        return "json";
     }
 
 }
