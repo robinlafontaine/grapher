@@ -1,46 +1,82 @@
 package io.lafontaine.grapher;
 
-import java.util.*;
 import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
-public final class Graph {
+public class Graph {
 
-    private final Map<Integer, Set<Integer>> adjacentList = new HashMap<>();
-    private final Map<Integer, Map<Integer, Double>> weights = new HashMap<>();
+    private ArrayList<Node> nodes = new ArrayList<>();
+    private ArrayList<Edge> edges = new ArrayList<>();
 
-    public void addNode(int node) {
-        adjacentList.computeIfAbsent(node, key -> new TreeSet<>());
+    public void addNode(Node node) {
+        nodes.add(node);
     }
 
-    public void addEdge(int one, int two, double weight) {
-        addDirectedEdge(one, two, weight);
-        addDirectedEdge(two, one, weight);
+    public void addEdge(Edge edge) {
+        edges.add(edge);
     }
 
-    private void addDirectedEdge(int one, int two, double weight) {
-        addNode(one);
-        addNode(two);
-        adjacentList.get(one).add(two);
-        setWeight(one, two, weight);
+    public ArrayList<Node> getNodes() {
+        return nodes;
     }
 
-    private void setWeight(int one, int two, double weight) {
-        weights.computeIfAbsent(one, key -> new HashMap<>());
-        weights.get(one).put(two, weight);
+    public ArrayList<Edge> getEdges() {
+        return edges;
     }
 
-    @Override
+    public void setNodes(ArrayList<Node> nodes) {
+        this.nodes = nodes;
+    }
+
+    public void setEdges(ArrayList<Edge> edges) {
+        this.edges = edges;
+    }
+
+    public Map<Integer, ArrayList<Integer>> getAdjacencyList() {
+        Map<Integer, ArrayList<Integer>> adjacencyList = new HashMap<>();
+
+        for (Edge edge : edges) {
+            int source = edge.getSource();
+            int target = edge.getTarget();
+
+            if (!adjacencyList.containsKey(source)) {
+                adjacencyList.put(source, new ArrayList<>());
+            }
+
+            adjacencyList.get(source).add(target);
+        }
+
+        return adjacencyList;
+    }
+
+    public Map<Integer, Map<Integer, Double>> getWeights() {
+        Map<Integer, Map<Integer, Double>> weights = new HashMap<>();
+
+        for (Edge edge : edges) {
+            int source = edge.getSource();
+            int target = edge.getTarget();
+            double weight = edge.getWeight();
+
+            if (!weights.containsKey(source)) {
+                weights.put(source, new HashMap<>());
+            }
+
+            weights.get(source).put(target, weight);
+        }
+
+        return weights;
+    }
+
     public String toString() {
         StringBuilder sb = new StringBuilder();
 
-        for (Map.Entry<Integer, Set<Integer>> entry : adjacentList.entrySet()) {
-            int from = entry.getKey();
-            for (int to : entry.getValue()) {
-                sb.append(from).append(" -> ").append(to).append(" (").append(weights.get(from).get(to)).append(")").append("\n");
-            }
+        for (Edge edge : edges) {
+            sb.append(edge.toString()).append("\n");
         }
+
         return sb.toString();
     }
 
@@ -49,4 +85,13 @@ public final class Graph {
         return gson.toJson(graph);
     }
 
+    public static Graph fillGraph(Graph graph){
+        graph.addNode(new Node(1, "Node 1"));
+        graph.addNode(new Node(2, "Node 2"));
+        graph.addNode(new Node(3, "Node 3"));
+        graph.addEdge(new Edge(1, 2, 1.1));
+        graph.addEdge(new Edge(2, 3, 2.2));
+        graph.addEdge(new Edge(3, 1, 3.3));
+        return graph;
+    }
 }

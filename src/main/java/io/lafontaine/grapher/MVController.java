@@ -25,12 +25,7 @@ public class MVController {
     @GetMapping("/json")
     public String json(Model model) {
         Graph graph = new Graph();
-        graph.addNode(1);
-        graph.addNode(2);
-        graph.addNode(3);
-        graph.addEdge(1, 2, 1.1);
-        graph.addEdge(2, 3, 2.2);
-        graph.addEdge(3, 1, 3.3);
+        Graph.fillGraph(graph);
         String json = Graph2Json(graph);
         model.addAttribute("json", json);
         return "json";

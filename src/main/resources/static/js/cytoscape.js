@@ -41,11 +41,10 @@ var cy = cytoscape({
     }
 
 });
-
-cy.add([
-    {data: { id: 'c'}},
-    {data: { id: 'ac', source: 'a', target: 'c', weight: 6.1}}
-])
+function addGraph(json){
+    cy.add(json)
+}
+cy.add([{data: { id: 'caca'}},{data: { id: 'ac', source: 'a', target: 'caca', weight: 6.1}}])
 
 cy.autoungrabify(true);
 cy.zoom(0.8);
