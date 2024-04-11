@@ -85,6 +85,11 @@ public class Graph {
         return gson.toJson(graph);
     }
 
+    public static Graph Json2Graph(String json) {
+        Gson gson = new Gson();
+        return gson.fromJson(json, Graph.class);
+    }
+
     public static Graph fillGraph(Graph graph){
         graph.addNode(new Node(1, "Node 1"));
         graph.addNode(new Node(2, "Node 2"));
@@ -93,5 +98,23 @@ public class Graph {
         graph.addEdge(new Edge(2, 3, 2.2));
         graph.addEdge(new Edge(3, 1, 3.3));
         return graph;
+    }
+
+    public String Json2Cy(String json) {
+        Graph graph = Json2Graph(json);
+        StringBuilder sb = new StringBuilder();
+
+        sb.append("[\n");
+        for (Node node : graph.getNodes()) {
+            sb.append("{ group: 'nodes', data: { id: '").append(node.getId()).append("', name: '").append(node.getName()).append("' } },\n");
+        }
+
+        for (Edge edge : graph.getEdges()) {
+            sb.append("{ group: 'edges', data: { source: '").append(edge.getSource()).append("', target: '").append(edge.getTarget()).append("', weight: ").append(edge.getWeight()).append(" } },\n");
+        }
+        sb.deleteCharAt(sb.length() - 2);
+        sb.append("]");
+
+        return sb.toString();
     }
 }

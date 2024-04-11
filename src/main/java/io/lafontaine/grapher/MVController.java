@@ -28,6 +28,9 @@ public class MVController {
         Graph.fillGraph(graph);
         String json = Graph2Json(graph);
         model.addAttribute("json", json);
+        System.out.printf(json);
+        String cy = graph.Json2Cy(json);
+        System.out.println(cy);
         return "json";
     }
 
