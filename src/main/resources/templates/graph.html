@@ -7,9 +7,41 @@
     <link rel="stylesheet" th:href="@{/style/stylesheet.css}">
     <script type="text/javascript" th:src="@{/js/cytoscape.js}" defer></script>
 </head>
-<body>
+<body th:onload="addGraph([[${json}]], [[${isSolution}]])">
 <div th:id="cy"></div>
-<button id="reset-button">Reset</button>
+<div class="sidenav">
+    <h1 class="nav-title">Grapher</h1>
+    <table class="nav-table">
+        <tr class="nav-table">
+            <td rowspan="2" class="nav-table" style="border-right: 4px solid black;">
+                <img th:src="@{/images/maps.svg}" height="85em" alt="">
+            </td>
+            <td class="nav-table" style="width: 100%;">
+                <select class="nav-select" id="source">
+                    <option th:each="node : ${nodes}" th:value="${node.getId()}" th:text="${node.getName()}">
+                </select>
+            </td>
+        </tr>
+        <tr class="nav-table">
+            <td class="nav-table" style="width: 100%;">
+                <select class="nav-select" id="destination">
+                    <option th:each="node : ${nodes}" th:value="${node.getId()}" th:text="${node.getName()}">
+                </select>
+            </td>
+        </tr>
+    </table>
+
+
+    <button class="nav-button">Find Route</button>
+    <hr>
+    <label class="nav-item" for="file">Upload Graph</label>
+    <form method="post" enctype="multipart/form-data">
+        <input class="nav-button" id="file" name="file" type="file" />
+        <button class="nav-button">Upload</button>
+    </form>
+
+    <div id="footer">Robin Lafontaine</div>
+</div>
+
 </body>
-<script th:onload="addGraph(${json})"></script>
 </html>

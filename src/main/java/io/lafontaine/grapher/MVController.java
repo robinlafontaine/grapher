@@ -1,5 +1,4 @@
 package io.lafontaine.grapher;
-
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,8 +16,12 @@ public class MVController {
 
     @GetMapping("/graph")
     public String graph(Model model) {
-        //model.getAttribute(un_graph);è
-
+        Graph graph = new Graph();
+        Graph.fillGraph(graph);
+        String json = Graph2Json(graph);
+        String cy = graph.Json2Cy(json);
+        model.addAttribute("json", cy);
+        model.addAttribute("nodes", graph.getNodes());
         return "graph";
     }
 

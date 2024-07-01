@@ -1,7 +1,5 @@
 package io.lafontaine.grapher;
-
 import com.google.gson.Gson;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -91,12 +89,15 @@ public class Graph {
     }
 
     public static Graph fillGraph(Graph graph){
+        graph.addNode(new Node(0, "Node 0"));
         graph.addNode(new Node(1, "Node 1"));
         graph.addNode(new Node(2, "Node 2"));
         graph.addNode(new Node(3, "Node 3"));
-        graph.addEdge(new Edge(1, 2, 1.1));
-        graph.addEdge(new Edge(2, 3, 2.2));
-        graph.addEdge(new Edge(3, 1, 3.3));
+        graph.addEdge(new Edge(0, 1, 5));
+        graph.addEdge(new Edge(0, 2, 2));
+        graph.addEdge(new Edge(2, 1, 1));
+        graph.addEdge(new Edge(1, 3, 1));
+        graph.addEdge(new Edge(2, 3, 7));
         return graph;
     }
 
@@ -106,15 +107,16 @@ public class Graph {
 
         sb.append("[\n");
         for (Node node : graph.getNodes()) {
-            sb.append("{ group: 'nodes', data: { id: '").append(node.getId()).append("', name: '").append(node.getName()).append("' } },\n");
+            sb.append("{ \"group\": \"nodes\", \"data\": { \"id\": \"").append(node.getId()).append("\", \"name\": \"").append(node.getName()).append("\" } },\n");
         }
 
         for (Edge edge : graph.getEdges()) {
-            sb.append("{ group: 'edges', data: { source: '").append(edge.getSource()).append("', target: '").append(edge.getTarget()).append("', weight: ").append(edge.getWeight()).append(" } },\n");
+            sb.append("{ \"group\": \"edges\", \"data\": { \"id\": \"").append(edge.getSource()).append("-").append(edge.getTarget()).append("\", \"source\": \"").append(edge.getTarget()).append("\", \"target\": \"").append(edge.getSource()).append("\", \"weight\": ").append(edge.getWeight()).append(" } },\n");
         }
         sb.deleteCharAt(sb.length() - 2);
         sb.append("]");
 
         return sb.toString();
     }
+
 }

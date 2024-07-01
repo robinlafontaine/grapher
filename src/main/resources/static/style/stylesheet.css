@@ -1,6 +1,87 @@
 #cy {
-    width: 800px;
-    height: 800px;
+    width: 80%;
+    height: 1000px;
     display: block;
     border: black;
+}
+
+.sidenav {
+    width: 20%;
+    position: fixed;
+    z-index: 1;
+    top: 10px;
+    right: 10px;
+    bottom: 10px;
+    background-color: black;
+    overflow-x: hidden;
+    display: flex;
+    flex-direction: column;
+    align-content: flex-start;
+    padding: 10px;
+    border-radius: 30px;
+    box-shadow: 8px 8px 4px rgb(0 0 0 / 0.4);
+
+}
+.nav-item {
+    font-family: "Roboto", sans-serif;
+    padding: 5px;
+    margin: 5px;
+    line-height: 10px;
+    color: white;
+    font-weight: bold;
+}
+
+.nav-select {
+    background: black;
+    padding: 10px;
+    margin: 10px 0 10px 0;
+    line-height: 10px;
+    color: white;
+    font-weight: bold;
+    border-radius: 4px;
+    border: 1px solid #ffff;
+    width: 100%;
+}
+
+.nav-button {
+    background: black;
+    padding: 10px;
+    margin: 10px;
+    line-height: 10px;
+    color: white;
+    font-weight: bold;
+    border-radius: 4px;
+    border: 1px solid #ffff;
+}
+
+.nav-title {
+    text-align: center;
+    display: block;
+    color: white;
+    font-family: "Roboto", sans-serif;
+    font-size: 30px;
+    font-weight: bold;
+    text-decoration: none;
+    font-style: italic;
+}
+
+hr {
+    border: 1px solid white;
+    margin: 20px;
+}
+
+#footer {
+    position: absolute;
+    width: 100%;
+    bottom: 20px;
+    color: white;
+    text-align: center;
+    font-family: "Roboto", sans-serif;
+    font-size: 10px;
+    font-style: italic;
+}
+
+.nav-table {
+    width: fit-content;
+    margin: 10px;
 }
