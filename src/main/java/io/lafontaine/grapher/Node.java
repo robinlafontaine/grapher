@@ -2,33 +2,53 @@ package io.lafontaine.grapher;
 
 public class Node {
 
-    private int id;
     private String name;
+    private boolean visited;
+    private double distance;
+    private Node previous;
 
-    public Node(int id, String name) {
-        this.id = id;
+    public Node(String name) {
         this.name = name;
-    }
-
-    public int getId() {
-        return id;
+        this.visited = false;
+        this.distance = Double.POSITIVE_INFINITY;
+        this.previous = null;
     }
 
     public String getName() {
         return name;
     }
 
-    public void setId(int id) {
-        this.id = id;
-    }
-
     public void setName(String name) {
         this.name = name;
     }
 
+    public boolean isVisited() {
+        return visited;
+    }
+
+    public void setVisited(boolean visited) {
+        this.visited = visited;
+    }
+
+    public double getDistance() {
+        return distance;
+    }
+
+    public void setDistance(double distance) {
+        this.distance = distance;
+    }
+
+    public Node getPrevious() {
+        return previous;
+    }
+
+    public void setPrevious(Node previous) {
+        this.previous = previous;
+    }
+
     @Override
     public String toString() {
-        return id + " (" + name + ")";
+        return name;
     }
 
     @Override
@@ -40,11 +60,15 @@ public class Node {
             return false;
         }
         Node node = (Node) obj;
-        return id == node.id && name.equals(node.name);
+        return name.equals(node.name);
+    }
+
+    public int compareTo(Node node){
+        return this.name.compareTo(node.name);
     }
 
     @Override
     public int hashCode() {
-        return id + name.hashCode();
+        return name.hashCode();
     }
 }

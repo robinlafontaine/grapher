@@ -19,9 +19,9 @@ public class MVController {
         Graph graph = new Graph();
         Graph.fillGraph(graph);
         String json = Graph2Json(graph);
-        String cy = graph.Json2Cy(json);
+        String cy = graph.Graph2Cy(graph);
         model.addAttribute("json", cy);
-        model.addAttribute("nodes", graph.getNodes());
+        model.addAttribute("nodes", graph.getNodes().values());
         return "graph";
     }
 
@@ -32,7 +32,7 @@ public class MVController {
         String json = Graph2Json(graph);
         model.addAttribute("json", json);
         System.out.printf(json);
-        String cy = graph.Json2Cy(json);
+        String cy = graph.Graph2Cy(graph);
         System.out.println(cy);
         return "json";
     }
