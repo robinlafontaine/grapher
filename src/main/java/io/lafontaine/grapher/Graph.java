@@ -1,10 +1,9 @@
 package io.lafontaine.grapher;
 import com.google.gson.Gson;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.Map;
+import java.util.*;
+
+import static io.lafontaine.grapher.Solver.pathToCy;
 
 public class Graph {
     private final Map<String, Node> nodes;
@@ -50,6 +49,10 @@ public class Graph {
         return adjacencyList.get(node);
     }
 
+    public boolean exists(String nodeName) {
+        return nodes.containsKey(nodeName);
+    }
+
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
@@ -81,17 +84,57 @@ public class Graph {
         graph.addEdge("C", "D", 7);
     }
 
-    public String Graph2Cy(Graph graph) {
+    public static void fillGraphBIG(Graph graph) {
+        for (char nodeName = 'A'; nodeName <= 'T'; nodeName++) {
+            graph.addNode(String.valueOf(nodeName));
+        }
+
+        for (char nodeName = 'A'; nodeName < 'T'; nodeName++) {
+            graph.addEdge(String.valueOf(nodeName), String.valueOf((char) (nodeName + 1)), Math.floor((Math.random() * 20 + 1) * 100)/100);
+        }
+
+        graph.addEdge("A", "C", 2);
+        graph.addEdge("A", "D", 3);
+        graph.addEdge("B", "E", 4);
+        graph.addEdge("B", "F", 5);
+        graph.addEdge("C", "G", 6);
+        graph.addEdge("C", "H", 7);
+        graph.addEdge("D", "I", 8);
+        graph.addEdge("D", "J", 9);
+        graph.addEdge("E", "K", 10);
+        graph.addEdge("E", "L", 11);
+        graph.addEdge("F", "M", 12);
+        graph.addEdge("F", "N", 13);
+        graph.addEdge("G", "O", 14);
+        graph.addEdge("G", "P", 15);
+    }
+
+    public String Graph2Cy(Graph graph, LinkedList<Node> solution) {
         StringBuilder sb = new StringBuilder();
         ArrayList<Edge> edges = new ArrayList<>();
+        ArrayList<String> cyEdges = null;
+        
+        if (solution != null) {
+            cyEdges = pathToCy(solution);
+        }
 
         sb.append("[\n");
 
         for (Node node : graph.getNodes().values()) {
-            sb.append("{ \"group\": \"nodes\", \"data\": { \"id\": \"").append(node.getName()).append("\", \"name\": \"").append(node.getName()).append("\" } },\n");
+            sb.append("{ \"group\": \"nodes\", \"data\": { \"id\": \"").append(node.getName()).append("\", \"name\": \"").append(node.getName()).append("\" } ");
+            if (solution != null && solution.contains(node)) {
+                sb.append(", \"classes\": [\"solution_node\"] ");
+            }
+            sb.append("},\n");
+
             for (Edge edge : graph.getEdges(node.getName())) {
                 if (!edges.contains(edge.getReverse())) {
-                    sb.append("{ \"group\": \"edges\", \"data\": { \"id\": \"").append(edge.getFrom()).append("-").append(edge.getTo()).append("\", \"source\": \"").append(edge.getTo()).append("\", \"target\": \"").append(edge.getFrom()).append("\", \"weight\": ").append(edge.getWeight()).append(" } },\n");
+                    var id = edge.getFrom().getName() + "-" + edge.getTo().getName();
+                    sb.append("{ \"group\": \"edges\", \"data\": { \"id\": \"").append(id).append("\", \"source\": \"").append(edge.getTo()).append("\", \"target\": \"").append(edge.getFrom()).append("\", \"weight\": ").append(edge.getWeight()).append(" } ");
+                    if (solution != null && cyEdges.contains(id)) {
+                        sb.append(", \"classes\": [\"solution_edge\"] ");
+                    }
+                    sb.append("},\n");
                     edges.add(edge);
                 }
             }

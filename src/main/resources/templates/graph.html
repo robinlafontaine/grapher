@@ -17,27 +17,26 @@
                 <img th:src="@{/images/maps.svg}" height="85em" alt="">
             </td>
             <td class="nav-table" style="width: 100%;">
-                <select class="nav-select" id="source">
+                <select class="nav-select" id="from">
                     <option th:each="node : ${nodes}" th:value="${node.getName()}" th:text="${node.getName()}">
                 </select>
             </td>
         </tr>
         <tr class="nav-table">
             <td class="nav-table" style="width: 100%;">
-                <select class="nav-select" id="destination">
+                <select class="nav-select" id="to">
                     <option th:each="node : ${nodes}" th:value="${node.getName()}" th:text="${node.getName()}">
                 </select>
             </td>
         </tr>
     </table>
+    <label class="nav-item">Distance : <span th:text="${distance}"/></label>
+    <button class="nav-button" th:onclick="findRoute()">Find Route</button>
 
-
-    <button class="nav-button">Find Route</button>
     <hr>
-    <label class="nav-item" for="file">Upload Graph</label>
-    <form method="post" enctype="multipart/form-data">
-        <input class="nav-button" id="file" name="file" type="file" />
-        <button class="nav-button">Upload</button>
+    <form method="post" th:action="@{/upload}" enctype="multipart/form-data">
+        <input type="file" name="file" accept="image/*" class="nav-button">
+        <button type="submit" class="nav-button">Upload</button>
     </form>
 
     <div id="footer">Robin Lafontaine</div>

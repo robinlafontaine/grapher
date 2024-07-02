@@ -1,5 +1,4 @@
 package io.lafontaine.grapher;
-
 import java.util.Objects;
 
 public class Edge {

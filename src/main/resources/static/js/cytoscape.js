@@ -2,7 +2,7 @@ var cy = cytoscape({
     container: document.getElementById('cy') // container to render in
 });
 
-cy.style([ // the stylesheet for the graph
+cy.style([
     {
         selector: 'node',
         style: {
@@ -20,15 +20,36 @@ cy.style([ // the stylesheet for the graph
             'curve-style': 'bezier',
             'label': 'data(weight)'
         }
+    },
+
+    {
+        selector: '.solution_node',
+        style: {
+            'background-color': '#f00',
+        }
+    },
+
+    {
+        selector: '.solution_edge',
+        style: {
+            'line-color': '#f00',
+        }
+
     }
 ]);
 
 cy.zoom(0.5);
-cy.layout({name: 'grid'}).run();
+cy.layout({name: 'circle'}).run();
 
 function addGraph(json) {
     cy.add(JSON.parse(json));
-    cy.layout({name: 'grid'}).run();
+    cy.layout({name: 'circle'}).run();
+}
+
+function findRoute() {
+    var from = document.getElementById('from').value;
+    var to = document.getElementById('to').value;
+    location.href = '/graph?from=' + from + '&to=' + to;
 }
 
 //cy.elements.remove()

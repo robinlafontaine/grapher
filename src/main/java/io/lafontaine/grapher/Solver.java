@@ -1,8 +1,11 @@
 package io.lafontaine.grapher;
 
+import java.util.ArrayList;
+import java.util.LinkedList;
+
 public class Solver {
 
-    public boolean isPositive(Graph graph) {
+    public static boolean isPositive(Graph graph) {
         for(Node node : graph.getNodes().values()) {
             for(Edge edge : graph.getEdges(node.getName())) {
                 if(edge.getWeight() < 0) {
@@ -13,7 +16,7 @@ public class Solver {
         return true;
     }
 
-    public boolean isConnected(Graph graph) {
+    public static boolean isConnected(Graph graph) {
         for(Node node : graph.getNodes().values()) {
             if(graph.getEdges(node.getName()).isEmpty()) {
                 return false;
@@ -22,7 +25,7 @@ public class Solver {
         return true;
     }
 
-    public Node getClosestUnvisited(Graph graph) {
+    public static Node getClosestUnvisited(Graph graph) {
         Node closest = null;
         for(Node node : graph.getNodes().values()) {
             if(!node.isVisited() && (closest == null || node.getDistance() < closest.getDistance())) {
@@ -32,7 +35,17 @@ public class Solver {
         return closest;
     }
 
-    public Graph shortestPath(Graph graph, Node start, Node end) {
+    public static LinkedList<Node> reconstructPath(Node end) {
+        LinkedList<Node> path = new LinkedList<>();
+        Node current = end;
+        while (current != null) {
+            path.addFirst(current);
+            current = current.getPrevious();
+        }
+        return path;
+    }
+
+    public static LinkedList<Node> shortestPath(Graph graph, Node start, Node end) {
         if (!isPositive(graph) || !isConnected(graph)) {
             throw new IllegalArgumentException("Graph must be positive and connected");
         }
@@ -71,15 +84,20 @@ public class Solver {
             current = getClosestUnvisited(graph);
         }
 
-        return graph;
+        return reconstructPath(end);
     }
 
-    public static void main(String[] args) {
-        Graph graph = new Graph();
-        Graph.fillGraph(graph);
-        Solver solver = new Solver();
-        System.out.println(graph);
-        System.out.println(solver.shortestPath(graph, graph.getNodes().get("A"), graph.getNodes().get("D")));
+    public static double shortestPathLength(LinkedList<Node> path) {
+        return path.getLast().getDistance();
+    }
+
+    public static ArrayList<String> pathToCy(LinkedList<Node> path) {
+        ArrayList<String> cy = new ArrayList<>();
+        for (int i = 0; i < path.size() - 1; i++) {
+            cy.add(path.get(i).getName() + "-" + path.get(i + 1).getName());
+            cy.add(path.get(i+1).getName() + "-" + path.get(i).getName());
+        }
+        return cy;
     }
 
 }
