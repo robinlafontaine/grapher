@@ -20,7 +20,7 @@ The graph is displayed using the [cytoscape.js](https://js.cytoscape.org/) libra
 2. Run the 'compose.yaml' file in order to set up the PostgreSQL database.
 3. Run the 'GrapherApplication.java' file to start the Spring server.
 4. Go to 'http://localhost:8080/' in your browser to access the graph viewer.
-5. There are example graphs to upload in '/examples'
+5. There are example graphs to upload in '/examples'.
 
 ### Screenshots
 ![Screenshot](imgs/main.png)
