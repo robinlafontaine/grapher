@@ -37,7 +37,7 @@ public class MVController {
     @GetMapping("/add")
     public String add(Model model) {
         Graph graph = new Graph();
-        Graph.fillGraphBIG(graph);
+        Graph.fillGraph(graph);
         String json = Graph.toJson(graph);
         saveGraph(json, json.hashCode());
         return "redirect:/graph";

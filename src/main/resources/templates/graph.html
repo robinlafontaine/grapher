@@ -25,7 +25,7 @@
         <tr class="nav-table">
             <td class="nav-table" style="width: 100%;">
                 <select class="nav-select" id="to">
-                    <option th:each="node : ${nodes}" th:value="${node.getName()}" th:text="${node.getName()}"th:selected="${node.getName() == to}">
+                    <option th:each="node : ${nodes}" th:value="${node.getName()}" th:text="${node.getName()}" th:selected="${node.getName() == to}">
                 </select>
             </td>
         </tr>
@@ -40,7 +40,7 @@
     <hr>
     <form method="post" th:action="@{/upload}" enctype="multipart/form-data">
         <label class="nav-item">Upload Graph</label>
-        <input type="file" name="file" accept="image/*" class="nav-button">
+        <input type="file" name="file" accept="application/JSON" class="nav-button">
         <button type="submit" class="nav-button">Upload</button>
     </form>
 

@@ -18,6 +18,10 @@ public class GraphDB {
     @Column(name = "hashcode", nullable = false, unique = true)
     private int hashcode;
 
+    @CreationTimestamp(source = SourceType.DB)
+    @Column(name = "created_at", nullable = false)
+    private java.util.Date created_at;
+
     public Long getId() {
         return id;
     }
@@ -40,6 +44,10 @@ public class GraphDB {
 
     public void setHashcode(int hashcode) {
         this.hashcode = hashcode;
+    }
+
+    public java.util.Date getCreatedAt() {
+        return created_at;
     }
 
 }
