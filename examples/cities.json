@@ -1,0 +1,43 @@
+{
+    "nodes": [
+        { "name": "London" },
+        { "name": "Paris" },
+        { "name": "New York" },
+        { "name": "Tokyo" },
+        { "name": "Berlin" },
+        { "name": "Rome" },
+        { "name": "Sydney" },
+        { "name": "Los Angeles" },
+        { "name": "Chicago" },
+        { "name": "Moscow" }
+    ],
+    "edges": [
+        { "from": "London", "to": "Paris", "weight": 5.0 },
+        { "from": "London", "to": "New York", "weight": 2.0 },
+        { "from": "Paris", "to": "London", "weight": 5.0 },
+        { "from": "Paris", "to": "New York", "weight": 1.0 },
+        { "from": "Paris", "to": "Berlin", "weight": 1.0 },
+        { "from": "New York", "to": "London", "weight": 2.0 },
+        { "from": "New York", "to": "Paris", "weight": 1.0 },
+        { "from": "New York", "to": "Tokyo", "weight": 7.0 },
+        { "from": "Tokyo", "to": "Paris", "weight": 1.0 },
+        { "from": "Tokyo", "to": "New York", "weight": 7.0 },
+
+        { "from": "London", "to": "Rome", "weight": 3.0 },
+        { "from": "Paris", "to": "Berlin", "weight": 2.5 },
+        { "from": "New York", "to": "Chicago", "weight": 4.0 },
+        { "from": "Tokyo", "to": "Los Angeles", "weight": 1.5 },
+        { "from": "Rome", "to": "Berlin", "weight": 8.0 },
+        { "from": "Rome", "to": "Sydney", "weight": 6.0 },
+        { "from": "Berlin", "to": "Chicago", "weight": 1.2 },
+        { "from": "Berlin", "to": "Moscow", "weight": 9.0 },
+        { "from": "Chicago", "to": "Los Angeles", "weight": 0.7 },
+        { "from": "Chicago", "to": "London", "weight": 5.5 },
+        { "from": "Los Angeles", "to": "Sydney", "weight": 4.8 },
+        { "from": "Los Angeles", "to": "Paris", "weight": 3.2 },
+        { "from": "Sydney", "to": "Moscow", "weight": 7.1 },
+        { "from": "Moscow", "to": "New York", "weight": 2.9 },
+        { "from": "Moscow", "to": "Tokyo", "weight": 1.1 }
+
+    ]
+}

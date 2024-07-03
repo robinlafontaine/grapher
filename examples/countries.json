@@ -1,0 +1,35 @@
+{
+    "nodes": [
+        { "name": "China" },
+        { "name": "India" },
+        { "name": "United States" },
+        { "name": "Brazil" },
+        { "name": "Nigeria" },
+        { "name": "Russia" },
+        { "name": "Germany" },
+        { "name": "Indonesia" },
+        { "name": "Pakistan" },
+        { "name": "Japan" }
+    ],
+    "edges": [
+        { "from": "China", "to": "United States", "weight": 6.0 },
+        { "from": "China", "to": "India", "weight": 4.0 },
+        { "from": "China", "to": "Russia", "weight": 2.0 },
+        { "from": "India", "to": "United States", "weight": 3.0 },
+        { "from": "India", "to": "Brazil", "weight": 7.0 },
+        { "from": "United States", "to": "Brazil", "weight": 5.0 },
+        { "from": "United States", "to": "Germany", "weight": 7.0 },
+        { "from": "Brazil", "to": "Nigeria", "weight": 2.5 },
+        { "from": "Russia", "to": "Germany", "weight": 1.0 },
+        { "from": "Russia", "to": "Japan", "weight": 0.5 },
+        { "from": "Germany", "to": "Japan", "weight": 4.0 },
+        { "from": "Indonesia", "to": "China", "weight": 3.5 },
+        { "from": "Indonesia", "to": "Japan", "weight": 2.0 },
+        { "from": "Pakistan", "to": "China", "weight": 5.5 },
+        { "from": "Japan", "to": "United States", "weight": 8.0 },
+        { "from": "Japan", "to": "Russia", "weight": 3.0 },
+        { "from": "Japan", "to": "Germany", "weight": 2.0 },
+        { "from": "Japan", "to": "Indonesia", "weight": 1.0 },
+        { "from": "Japan", "to": "Pakistan", "weight": 4.0 }
+    ]
+}
