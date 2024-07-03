@@ -23,3 +23,9 @@ The graph is displayed using the [cytoscape.js](https://js.cytoscape.org/) libra
 
 ### Screenshots
 ![Screenshot](imgs/main.png)
+
+### Remarks
+
+- I am aware that this project contains many bugs and probably vulnerabilities. This is my first time working with Java Spring and Hibernate ORM, so I am still learning.
+- The project is a PoC and should not be used in production. I do not plan to maintain it.
+- This was my first time working with Spring, Thymeleaf, and Hibernate ORM. I am still learning, and I am aware that the code is not perfect.
