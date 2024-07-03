@@ -17,14 +17,14 @@
                 <img th:src="@{/images/maps.svg}" height="85em" alt="">
             </td>
             <td class="nav-table" style="width: 100%;">
-                <select class="nav-select" id="from">
+                <select class="route-select" id="from">
                     <option th:each="node : ${nodes}" th:value="${node.getName()}" th:text="${node.getName()}" th:selected="${node.getName() == from}">
                 </select>
             </td>
         </tr>
         <tr class="nav-table">
             <td class="nav-table" style="width: 100%;">
-                <select class="nav-select" id="to">
+                <select class="route-select" id="to">
                     <option th:each="node : ${nodes}" th:value="${node.getName()}" th:text="${node.getName()}" th:selected="${node.getName() == to}">
                 </select>
             </td>
@@ -34,15 +34,17 @@
     <button class="nav-button" th:onclick="findRoute()">Find Route</button>
     <hr>
     <label class="nav-item">Load Graph</label>
-    <select class="nav-button" id="graph_id" th:onchange="loadGraph()">
-        <option th:each="graph : ${graphs}" th:value="${graph.getId()}" th:text="${graph.getId()}" th:selected="${graph.getId() == id}">
+    <select class="nav-select" id="graph_id" th:onchange="loadGraph()">
+        <option th:each="graph : ${graphs}" th:value="${graph.getId()}" th:text="${graph.getName()}" th:selected="${graph.getId() == id}">
     </select>
     <hr>
     <form method="post" th:action="@{/upload}" enctype="multipart/form-data">
         <label class="nav-item">Upload Graph</label>
-        <input type="file" name="file" accept="application/JSON" class="nav-button">
+        <input type="file" name="file" accept="application/JSON" class="nav-select">
+        <input type="text" name="name" class="nav-select" placeholder="Name">
         <button type="submit" class="nav-button">Upload</button>
     </form>
+    <span th:if="${message}" th:text="${message}"></span>
 
     <div id="footer">Robin Lafontaine</div>
 </div>

@@ -1,18 +1,16 @@
 package io.lafontaine.grapher;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.websocket.OnError;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
-
-import static java.lang.Float.isNaN;
 
 @Controller
 public class MVController {
@@ -22,24 +20,22 @@ public class MVController {
     @Autowired
     private GraphRepository graphRepository;
 
-    @GetMapping("/greeting")
-    public String greeting(@RequestParam(name="name", required=false, defaultValue="World") String name, Model model) {
-        model.addAttribute("name", name);
-        return "greeting";
+    @GetMapping("/")
+    public String index(Model model) {
+        Graph graph = new Graph();
+        Graph big = new Graph();
+        Graph.fillGraph(graph);
+        Graph.fillGraphBIG(big);
+        String json = Graph.toJson(graph);
+        String json_big = Graph.toJson(big);
+        saveGraph(json, json.hashCode(), "Default");
+        saveGraph(json_big, json_big.hashCode(), "Big");
+        return "redirect:/graph";
     }
 
     @GetMapping("/drop")
     public String drop(Model model) {
         graphRepository.deleteAll();
-        return "redirect:/graph";
-    }
-
-    @GetMapping("/add")
-    public String add(Model model) {
-        Graph graph = new Graph();
-        Graph.fillGraph(graph);
-        String json = Graph.toJson(graph);
-        saveGraph(json, json.hashCode());
         return "redirect:/graph";
     }
 
@@ -59,9 +55,9 @@ public class MVController {
         if (graph_db != null) {
             json = graph_db.getJson();
             graph = Graph.fromJson(json);
+
         } else {
             graph = new Graph();
-            Graph.fillGraphBIG(graph);
         }
 
         if ((from != null && to != null) && graph.exists(from) && graph.exists(to)){
@@ -81,9 +77,15 @@ public class MVController {
     }
 
     @PostMapping("/upload")
-    public String upload(Model model, @RequestParam("file") MultipartFile file) {
+    public String upload(Model model, @RequestParam(name="name") String name ,@RequestParam("file") MultipartFile file) {
+
+        if (file.isEmpty() || name.isEmpty()) {
+            System.out.println("Please select a file and a name !");
+            return "redirect:/graph";
+        }
+
         try {
-            uploadFile(file);
+            uploadFile(file, name);
         } catch (Exception e) {
             System.out.println("Error uploading file");
         }
@@ -94,14 +96,20 @@ public class MVController {
         return graphRepository.findByhashcode(hashcode) != null;
     }
 
-    public void saveGraph(String json, int hashcode) {
+    public void saveGraph(String json, int hashcode, String name) {
+        if (hashcodeExists(hashcode)) {
+            System.out.println("Graph already exists");
+            return;
+        }
         GraphDB graph = new GraphDB();
         graph.setJson(json);
         graph.setHashcode(hashcode);
+        graph.setName(name);
         graphRepository.save(graph);
+        System.out.println("Graph saved");
     }
 
-    public void uploadFile(MultipartFile file) {
+    public void uploadFile(MultipartFile file, String name) {
         String json_content;
         String filename = file.getOriginalFilename();
         int hashcode;
@@ -111,7 +119,7 @@ public class MVController {
             json_content = Files.readString(Paths.get(UPLOAD_DIRECTORY, file.getOriginalFilename()));
             hashcode = json_content.hashCode();
             if (Upload.isValidJson(json_content) && !hashcodeExists(hashcode)) {
-                saveGraph(json_content, hashcode);
+                saveGraph(json_content, hashcode, name);
             } else {
                 System.out.println("Invalid JSON file or Graph already exists");
             }
