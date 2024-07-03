@@ -52,7 +52,7 @@ public class Solver {
 
         // Set the distance for the start node to 0 and for all other nodes to infinity.
         for (Node node : graph.getNodes().values()) {
-            node.setDistance(Double.POSITIVE_INFINITY);
+            node.setDistance(Double.MAX_VALUE);
         }
         start.setDistance(0);
 

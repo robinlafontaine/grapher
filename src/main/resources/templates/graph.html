@@ -18,23 +18,28 @@
             </td>
             <td class="nav-table" style="width: 100%;">
                 <select class="nav-select" id="from">
-                    <option th:each="node : ${nodes}" th:value="${node.getName()}" th:text="${node.getName()}">
+                    <option th:each="node : ${nodes}" th:value="${node.getName()}" th:text="${node.getName()}" th:selected="${node.getName() == from}">
                 </select>
             </td>
         </tr>
         <tr class="nav-table">
             <td class="nav-table" style="width: 100%;">
                 <select class="nav-select" id="to">
-                    <option th:each="node : ${nodes}" th:value="${node.getName()}" th:text="${node.getName()}">
+                    <option th:each="node : ${nodes}" th:value="${node.getName()}" th:text="${node.getName()}"th:selected="${node.getName() == to}">
                 </select>
             </td>
         </tr>
     </table>
     <label class="nav-item">Distance : <span th:text="${distance}"/></label>
     <button class="nav-button" th:onclick="findRoute()">Find Route</button>
-
+    <hr>
+    <label class="nav-item">Load Graph</label>
+    <select class="nav-button" id="graph_id" th:onchange="loadGraph()">
+        <option th:each="graph : ${graphs}" th:value="${graph.getId()}" th:text="${graph.getId()}" th:selected="${graph.getId() == id}">
+    </select>
     <hr>
     <form method="post" th:action="@{/upload}" enctype="multipart/form-data">
+        <label class="nav-item">Upload Graph</label>
         <input type="file" name="file" accept="image/*" class="nav-button">
         <button type="submit" class="nav-button">Upload</button>
     </form>

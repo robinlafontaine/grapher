@@ -10,7 +10,7 @@ public class Node {
     public Node(String name) {
         this.name = name;
         this.visited = false;
-        this.distance = Double.POSITIVE_INFINITY;
+        this.distance = Double.MAX_VALUE;
         this.previous = null;
     }
 

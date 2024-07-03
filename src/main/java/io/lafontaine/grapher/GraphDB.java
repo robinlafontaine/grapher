@@ -1,22 +1,46 @@
 package io.lafontaine.grapher;
 
 import jakarta.persistence.*;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.SourceType;
 
+@Entity
+@Table(name = "graphs")
 public class GraphDB {
 
-    @Entity
-    @Table(name = "graphs")
-    public class Graphs {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
-        @Id
-        @GeneratedValue
-        private long id;
+    @Column(name = "json", columnDefinition="VARCHAR", nullable = false)
+    private String json;
 
-        @Column(name = "json", nullable = false)
-        private String json;
+    @Column(name = "hashcode", nullable = false, unique = true)
+    private int hashcode;
 
-        @Column(name = "hashcode", nullable = false)
-        private int hashcode;
-
+    public Long getId() {
+        return id;
     }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getJson() {
+        return json;
+    }
+
+    public void setJson(String json) {
+        this.json = json;
+    }
+
+    public int getHashcode() {
+        return hashcode;
+    }
+
+    public void setHashcode(int hashcode) {
+        this.hashcode = hashcode;
+    }
+
 }
+

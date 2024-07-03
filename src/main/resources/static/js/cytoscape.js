@@ -47,9 +47,16 @@ function addGraph(json) {
 }
 
 function findRoute() {
-    var from = document.getElementById('from').value;
-    var to = document.getElementById('to').value;
-    location.href = '/graph?from=' + from + '&to=' + to;
+    const urlParams = new URLSearchParams(location.search);
+    const id = urlParams.get('id');
+    const from = document.getElementById('from').value;
+    const to = document.getElementById('to').value;
+    location.href = '/graph?id=' + id + '&from=' + from + '&to=' + to;
+}
+
+function loadGraph() {
+    const id = document.getElementById('graph_id').value;
+    location.href = '/graph?id=' + id;
 }
 
 //cy.elements.remove()

@@ -62,14 +62,38 @@ public class Graph {
         return sb.toString();
     }
 
-    public static String Graph2Json(Graph graph) {
-        Gson gson = new Gson();
-        return gson.toJson(graph);
+    public static String toJson(Graph graph) {
+        StringBuilder sb = new StringBuilder();
+        sb.append("{\n\"nodes\": [\n");
+        for (Node node : graph.getNodes().values()) {
+            sb.append("{ \"name\": \"").append(node.getName()).append("\" },\n");
+        }
+        sb.deleteCharAt(sb.length() - 2);
+        sb.append("],\n\"edges\": [\n");
+        for (Node node : graph.getNodes().values()) {
+            for (Edge edge : graph.getEdges(node.getName())) {
+                sb.append("{ \"from\": \"").append(edge.getFrom()).append("\", \"to\": \"").append(edge.getTo()).append("\", \"weight\": ").append(edge.getWeight()).append(" },\n");
+            }
+        }
+        sb.deleteCharAt(sb.length() - 2);
+        sb.append("]\n}");
+        return sb.toString();
     }
 
-    public static Graph Json2Graph(String json) {
+    public static Graph fromJson(String json) {
         Gson gson = new Gson();
-        return gson.fromJson(json, Graph.class);
+        Map map = gson.fromJson(json, Map.class);
+        Graph graph = new Graph();
+
+        for (Map<String, String> node : (List<Map<String, String>>) map.get("nodes")) {
+            graph.addNode(node.get("name"));
+        }
+
+        for (Map<String, Object> edge : (List<Map<String, Object>>) map.get("edges")) {
+            graph.addEdge((String) edge.get("from"), (String) edge.get("to"), (double) edge.get("weight"));
+        }
+
+        return graph;
     }
 
     public static void fillGraph(Graph graph){
