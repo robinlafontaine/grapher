@@ -5,7 +5,7 @@
 This project is a simple graph viewer implementation in Java. It uses the Java Spring framework to serve a REST API and a Thymeleaf (server-side Java template engine) frontend to display the graph. 
 The graph is stored in a PostgreSQL database using Hibernate ORM and is updated in real-time when the user uploads or deletes JSON formated graphs. 
 The user can also search for the shortest path between two given nodes in the graph using Dijkstra's shortest path algorithm. 
-The graph is displayed using the [cytoscape.js](https://js.cytoscape.org/) library.
+The graph is displayed using the [cytoscape.js](https://github.com/cytoscape/cytoscape.js) library.
 
 ### Technologies
 - Java (Spring Maven)
