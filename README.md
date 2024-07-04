@@ -17,13 +17,25 @@ The graph is displayed using the [cytoscape.js](https://github.com/cytoscape/cyt
 
 ### How to run
 1. Clone the repository.
-2. Run the 'compose.yaml' file in order to set up the PostgreSQL database.
-3. Run the 'GrapherApplication.java' file to start the Spring server.
-4. Go to 'http://localhost:8080/' in your browser to access the graph viewer.
-5. There are example graphs to upload in '/examples'.
+2. Setup your environment variables (see Environment)
+3. Run `docker-compose -f compose.yaml up -d`.
+5. Go to 'http://localhost:8080/' in your browser to access the graph viewer.
+6. There are example graphs to upload in '/examples'.
 
 ### Screenshots
 ![Screenshot](imgs/main.png)
+
+### Environment
+You can set them directly in the 'compose.yaml' environment or use a '.env' file. Whatever floats your boat :)\
+Here are the following environment variables that you must set in order for the project to work :
+```yaml
+GRAPHER_PORT
+POSTGRES_DB
+POSTGRES_HOSTNAME
+POSTGRES_PORT
+POSTGRES_USER
+POSTGRES_PASSWORD
+```
 
 ### Remarks
 
