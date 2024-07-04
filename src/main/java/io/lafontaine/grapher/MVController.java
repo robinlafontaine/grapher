@@ -126,7 +126,7 @@ public class MVController {
             Path filePath = Paths.get(UPLOAD_DIRECTORY, filename);
             Files.delete(filePath);
         } catch (Exception e) {
-            System.out.println("Error uploading file");
+            System.out.println("Error uploading file : "+e.getMessage());
         }
     }
 }
